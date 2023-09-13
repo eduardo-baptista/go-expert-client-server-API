@@ -31,6 +31,7 @@ type ExchangeAPIResponse struct {
 
 type ExchangeRate struct {
 	gorm.Model
+	ID         int    `json:"id" gorm:"primaryKey"`
 	Code       string `json:"code"`
 	Codein     string `json:"codein"`
 	Name       string `json:"name"`
@@ -156,7 +157,6 @@ func saveExchangeRate(
 	exchangeRateResponse := exchangeRate
 	result := db.
 		WithContext(ctx).
-		Select("id", "created_at", "updated_at").
 		Create(&exchangeRateResponse)
 
 	if result.Error != nil {
